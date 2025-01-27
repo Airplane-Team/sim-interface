@@ -11,6 +11,7 @@ import asyncio
 import socket
 import json
 from dataclasses import dataclass
+import time
 
 ################################################################################
 # Constants & Utilities
@@ -226,6 +227,7 @@ class ForeFlightUDPServer:
         self.parser = parser
         self.port = port
         self.socket = None
+        self.lastDataReceivedTime = None
 
     async def run(self):
         """
@@ -259,7 +261,12 @@ class ForeFlightUDPServer:
             line = data.decode('utf-8', errors='ignore').strip()
             parsed_obj = self.parser.parse_line(line)
 
-            print(f"[ForeFlightUDPServer] Received: {parsed_obj}")
+            # If we haven't received data in a while, print a message
+            if self.lastDataReceivedTime is None or \
+               time.time() - self.lastDataReceivedTime > 5.0:
+                print(f"[ForeFlightUDPServer] Starting to receive data (e.g.): {parsed_obj}")
+            self.lastDataReceivedTime = time.time()
+
             if isinstance(parsed_obj, XGPSData):
                 await self.sim_data.update_from_xgps(parsed_obj)
             elif isinstance(parsed_obj, XATTData):
@@ -289,24 +296,29 @@ class ShirleyWebSocketServer:
         self.send_interval = 0.25  # seconds (4 Hz)
         self.connections = set()
 
-    async def handler(self, websocket, path):
+    async def handler(self, websocket):
         """
         Called for every new client connection. We can optionally listen for messages,
         but here we primarily just broadcast out.
         """
         self.connections.add(websocket)
-        print(f"[ShirleyWebSocketServer] Client connected: {websocket.remote_address}")
+        print(f"[ShirleyWebSocketServer] WebSocket Client connected: {websocket.remote_address}")
+
+        # if the suffix is not the expected path, print a warning
+        if not websocket.request.path.endswith(self.path):
+            print(f"[ShirleyWebSocketServer] Warning: WS Connected to {websocket.request.path}, not {self.path}")
 
         try:
             # Keep reading messages in case the client sends anything
-            async for _ in websocket:
+            async for setSimData in websocket:
                 # We ignore incoming messages in this example
-                pass
+                print(f"[ShirleyWebSocketServer] WebSocket Received SetSimData message: {setSimData}")
+
         except websockets.exceptions.ConnectionClosed:
             pass
         finally:
             self.connections.remove(websocket)
-            print(f"[ShirleyWebSocketServer] Client disconnected: {websocket.remote_address}")
+            print(f"[ShirleyWebSocketServer] WebSocket Client disconnected: {websocket.remote_address}")
 
     async def broadcast_loop(self):
         """
@@ -334,7 +346,7 @@ class ShirleyWebSocketServer:
 
     async def run(self):
         # Start the websockets server
-        server = await websockets.serve(self.handler, self.host, self.port) # path=self.path) # any path will work
+        server = await websockets.serve(self.handler, self.host, self.port)
         print(f"[ShirleyWebSocketServer] Serving at ws://{self.host}:{self.port}{self.path}")
         # Run forever, simultaneously:
         # 1) Accept client connections

@@ -17,7 +17,11 @@ This script **bridges [ForeFlight simulator data](https://support.foreflight.com
 
 ### 1. Python Version
 
-This script is designed to run on **Python 3.8+** (tested with 3.9+).
+This script is designed to run on **Python 3.8+** (tested with 3.9+). Check your Python version with:
+
+```bash
+python --version
+```
 
 ### 2. Dependencies
 
@@ -27,7 +31,7 @@ This script is designed to run on **Python 3.8+** (tested with 3.9+).
 pip install websockets
 ```
 
-- (Optional) Ensure your Python installation includes `asyncio` (available in Python 3.8+).
+- (Optional) Ensure your Python installation includes `asyncio` (available by default in Python 3.8+).
 
 ## Usage
 
@@ -39,12 +43,25 @@ python foreflight-bridge.py
 
 ### 2. Configure Your Simulator
 
-- Configure your flight simulator (or data source) to send ForeFlight-compatible XGPS and XATT messages via **UDP** to **port 49002** on the machine running this script.
-- Example UDP messages:
-  - `XGPSMySim,-80.11,34.55,1200.1,359.05,55.6`
-  - `XATTMySim,180.2,0.1,0.2`
+Configure your flight simulator (or data source) to send ForeFlight-compatible XGPS and XATT messages via **UDP** to **port 49002** on the machine running this script.
+
+- Make sure the IP address matches the machine running the bridge.
+- Make sure the port matches the UDP port in the script (default: 49002).
+
+Example UDP messages:
+
+- `XGPSMySim,-80.11,34.55,1200.1,359.05,55.6`
+- `XATTMySim,180.2,0.1,0.2`
 
 ### 3. Connect Shirley
+
+Adding `?aerofly` or `?generic` to the end of any Shirley URL will enable 3rd party sim mode.
+
+Example: `https://airplane.team/fly?aerofly` (or the equivalent for private beta users). Instead of 'X-Plane Websocket disconnected', you should see 'Sim Websocket disconnected'.
+
+**Once the bridge is running, press 'Connect to Sim'.**
+
+#### Technical Details
 
 - Point Shirley to **`ws://[HOST_IP]:2992/api/v1`**.
 - The script will broadcast JSON data in the following format:
@@ -65,7 +82,7 @@ python foreflight-bridge.py
   ```
 - Data updates ~4 times per second.
 
-### 4. Verify Logs
+### 4. Verify Logs in the Bridge CLI
 
 - The console will show when it receives UDP messages (`[ForeFlightUDPServer]` ...).
 - You’ll see logs for WebSocket connections (`[ShirleyWebSocketServer]` ...).
@@ -112,4 +129,4 @@ python foreflight-bridge.py
 }
 ```
 
-**Enjoy using the ForeFlight to Shirley bridge!**
+**Enjoy using the ForeFlight Protocol to Shirley bridge!**
