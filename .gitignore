@@ -1,0 +1,29 @@
+# gitignore System files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.cache
+*.out.*
+
+# User-specific files
+.idea
+*.ignore
+
+# keeping vscode for the code formatting coloration of .vscode/settings.json
+.vscode
+
+# All local files
+*.local
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/install-state.gz
+.yarn/build-state.gz
