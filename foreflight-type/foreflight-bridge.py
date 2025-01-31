@@ -240,19 +240,17 @@ class ForeFlightUDPServer:
         # Enable broadcast
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
-        # Allow port/address reuse
-        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        # Allow port/address reuse on Windows and Unix
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # NOTE: On Unix, also enable SO_REUSEPORT to allow multiple listeners on the same port
+        # Comment out on Windows, as it doesn't support SO_REUSEPORT
+        # self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
-        # Optional: Set a timeout (to avoid blocking indefinitely)
+        # Set blocking to True for our simple loop
         self.socket.setblocking(True)
 
         # Bind to all interfaces on the specified port:
         self.socket.bind(('', self.port))
-        # NOTE: AeroFly FS4: `''` doesn't work:
-        # - Aerofly already is using port 49002, so we can't bind to it:
-        # - `Address already in use`. See `netstat -tulnp` or `lsof -iUDP:49002`.
-        # - `'localhost`' binds but doesn't receive data from the simulator.
 
         print(f"[ForeFlightUDPServer] Listening on UDP port {self.port}...")
 
