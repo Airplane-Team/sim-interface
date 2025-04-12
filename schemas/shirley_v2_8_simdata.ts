@@ -34,9 +34,6 @@ export const RadiosNavigationSchema = z
       .nullable()
       .optional(),
     comShouldSwapFrequencies: z.record(z.string(), z.boolean()).nullable().optional(),
-    navigationFixes: z.record(z.string(), z.string()).nullable().optional(),
-    shouldActivateNavigationToFix: z.boolean().nullable().optional(),
-    shirleyPushToTalkIsPressed: z.boolean().nullable().optional(),
     transponderCode: z.number().nullable().optional(),
   })
   .strict();
