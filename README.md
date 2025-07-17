@@ -21,7 +21,7 @@ From [ForeFlight Documentation](https://support.foreflight.com/hc/en-us/articles
 
 ## Schemas Available Upon Request
 
-A schema is available in the `schemas` directory. It is up-to-date as of the Shirley version in its title. Shirley version numbers are listed at [https://airplane.team/changelog](https://airplane.team/changelog).
+A schema is available in the `schemas` directory. It is up-to-date as of the Shirley version in the [Changelog](CHANGELOG.md). Shirley version numbers are listed at [https://airplane.team/changelog](https://airplane.team/changelog).
 
 - `SimData` is sent from the sim to Shirley (e.g. position and attitude). Any fields that are present are used by Shirley. So, it is very easy to gradually add more support for Shirley by sending additional fields. No specific support is required on Shirley's end.
 - `SetSimData` is sent from Shirley to the sim: it requires prior knowledge of the sim's supported settable data.
