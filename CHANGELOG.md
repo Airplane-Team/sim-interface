@@ -9,7 +9,12 @@ Version numbers are assigned in Github Releases using `worker`'s version number.
 
 ### Added
 
-- Added `SimData` for Shirley `v2.12.0`.
+- Added `SimData` for Shirley `v2.12.0`:
+  - `verticalSpeedUpFpm` is now used instead of `verticalSpeedFpm`.
+  - `slipSkidBallRightDeflectionPercent` and `yawStringRightSideslipDeg` now exist.
+  - `flapsHandlePercentDown` and `speedBrakesHandlePercentDeployed` now allow for negative percent values.
+  - New fields `isFlightDirectorEngaged`, `targetVerticalSpeedFpm`.
+
 
 ### Changed
 

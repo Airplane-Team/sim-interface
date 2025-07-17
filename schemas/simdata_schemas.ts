@@ -10,7 +10,7 @@ export const PositionSchema = z
     mslAltitudeFt: z.number().nullable().optional(),
     indicatedAirspeedKts: z.number().nullable().optional(),
     gpsGroundSpeedKts: z.number().nullable().optional(),
-    verticalSpeedFpm: z.number().nullable().optional(),
+    verticalSpeedUpFpm: z.number().nullable().optional(),
   })
   .strict();
 export type Position = z.infer<typeof PositionSchema>;
@@ -64,14 +64,16 @@ export const IndicatorsSchema = z
     totalEnergyVariometerFpm: z.number().nullable().optional(),
     stallWarningOn: z.boolean().nullable().optional(),
     altimeterSettingInchesMercury: z.number().min(24).max(35).nullable().optional(),
+    slipSkidBallRightDeflectionPercent: z.number().min(-200).max(200).nullable().optional(),
+    yawStringRightSideslipDeg: z.number().min(-180).max(180).nullable().optional(),
   })
   .strict();
 export type Indicators = z.infer<typeof IndicatorsSchema>;
 
 export const LeversSchema = z
   .object({
-    flapsHandlePercentDown: z.number().min(0).max(100).nullable().optional(),
-    speedBrakesHandlePercentDeployed: z.number().min(0).max(100).nullable().optional(),
+    flapsHandlePercentDown: z.number().min(-100).max(100).nullable().optional(),
+    speedBrakesHandlePercentDeployed: z.number().min(-100).max(100).nullable().optional(),
     landingGearHandlePercentDown: z.number().min(0).max(100).nullable().optional(),
     throttlePercentOpen: z.record(z.string(), z.number().min(-200).max(200)).nullable().optional(),
     collectivePercentUp: z.record(z.string(), z.number().min(0).max(100)).nullable().optional(),
@@ -96,6 +98,7 @@ export type Levers = z.infer<typeof LeversSchema>;
 export const AutopilotSchema = z
   .object({
     isAutopilotEngaged: z.boolean().nullable().optional(),
+    isFlightDirectorEngaged: z.boolean().nullable().optional(),
     isHeadingSelectEnabled: z.boolean().nullable().optional(),
     altitudeMode: z
       .union([
@@ -113,6 +116,7 @@ export const AutopilotSchema = z
       ])
       .nullable()
       .optional(),
+    targetVerticalSpeedFpm: z.number().nullable().optional(),
     shouldLevelWings: z.boolean().nullable().optional(),
     magneticHeadingBugDeg: z.number().min(0).max(360).nullable().optional(),
     altitudeBugFt: z.number().min(0).max(70000).nullable().optional(),
