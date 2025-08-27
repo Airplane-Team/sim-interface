@@ -2,6 +2,8 @@
 
 Contains information and examples on connecting any sim to Shirley.
 
+See the [Changelog](CHANGELOG.md) for the latest changes.
+
 ## Background
 
 Shirley connects to a sim via WebSocket to receive `SimData` and send `SetSimData` messages.
@@ -25,6 +27,8 @@ A schema is available in the `schemas` directory. It is up-to-date as of the Shi
 
 - `SimData` is sent from the sim to Shirley (e.g. position and attitude). Any fields that are present are used by Shirley. So, it is very easy to gradually add more support for Shirley by sending additional fields. No specific support is required on Shirley's end.
 - `SetSimData` is sent from Shirley to the sim: it requires prior knowledge of the sim's supported settable data.
+  - The `schemas/set_simdata_schemas_xplane.ts` file is specific to X-Plane 12, but can be used for other sims in generic-sim mode by adding `?generic` to the flight URL.
+  - Extending to other sims is possible, but requires Shirley to be updated. Please [contact us on Discord](https://airplane.team/discord) for support.
 
 These schemas are subject to change as Shirley evolves.
 
