@@ -116,7 +116,7 @@ export const AutopilotSchema = z
       ])
       .nullable()
       .optional(),
-    targetVerticalSpeedFpm: z.number().nullable().optional(),
+    targetVerticalSpeedUpFpm: z.number().nullable().optional(),
     shouldLevelWings: z.boolean().nullable().optional(),
     magneticHeadingBugDeg: z.number().min(0).max(360).nullable().optional(),
     altitudeBugFt: z.number().min(0).max(70000).nullable().optional(),
@@ -128,7 +128,7 @@ export const SystemsSchema = z
   .object({
     batteryOn: z.record(z.string(), z.boolean()).nullable().optional(),
     pitotHeatSwitchOn: z.boolean().nullable().optional(),
-    brakesOn: z.boolean().nullable().optional(),
+    parkingBrakeOn: z.boolean().nullable().optional(),
     governorSwitchOn: z.record(z.string(), z.boolean()).nullable().optional(),
     totalEnergyAudioSwitchOn: z.boolean().nullable().optional(),
     propHeatSwitchOn: z.boolean().nullable().optional(),
@@ -242,6 +242,7 @@ export const SimulationSchema = z
     isPaused: z.boolean().nullable().optional(),
     simSpeedRatio: z.number().nullable().optional(),
     isCrashed: z.boolean().nullable().optional(),
+    shouldResetFlight: z.boolean().nullable().optional(),
   })
   .strict();
 export type Simulation = z.infer<typeof SimulationSchema>;

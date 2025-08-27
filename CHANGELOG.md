@@ -11,6 +11,13 @@ Version numbers are assigned in Github Releases using `worker`'s version number 
 
 - Added `SetSimData` for Shirley `v2.13.0` via `schemas/set_simdata_schemas_xplane.ts`. These are the only `SetSimData` messages that are supported by Shirley. Currently these are X-Plane 12-specific (see [README.md](README.md)).
 
+### Changed
+
+- Updates `SimData` for Shirley `v2.13.0`:
+  - `parkingBrakeOn` instead of `breaksOn`
+  - `shouldResetFlight` is now supported (write-only).
+  - `targetVerticalSpeedUpFpm` instead of `targetVerticalSpeedFpm`.
+
 ## [v2.12.0] - 2025-07-17
 
 ### Added
