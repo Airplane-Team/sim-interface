@@ -2,33 +2,27 @@
 
 import { z } from 'zod';
 
-export const PositionSchema = z
+export const SetPositionSchema = z
   .object({
     latitudeDeg: z.number().min(-90).max(90).nullable().optional(),
     longitudeDeg: z.number().min(-180).max(180).nullable().optional(),
     aglAltitudeFt: z.number().nullable().optional(),
     mslAltitudeFt: z.number().nullable().optional(),
     indicatedAirspeedKts: z.number().nullable().optional(),
-    gpsGroundSpeedKts: z.number().nullable().optional(),
-    verticalSpeedUpFpm: z.number().nullable().optional(),
   })
   .strict();
-export type Position = z.infer<typeof PositionSchema>;
+export type SetPosition = z.infer<typeof SetPositionSchema>;
 
-export const AttitudeSchema = z
+export const SetAttitudeSchema = z
   .object({
-    rollAngleDegRight: z.number().min(-180).max(180).nullable().optional(),
     pitchAngleDegUp: z.number().min(-90).max(90).nullable().optional(),
-    magneticHeadingDeg: z.number().min(0).max(360).nullable().optional(),
     trueHeadingDeg: z.number().min(0).max(360).nullable().optional(),
-    trueGroundTrackDeg: z.number().min(0).max(360).nullable().optional(),
   })
   .strict();
-export type Attitude = z.infer<typeof AttitudeSchema>;
+export type SetAttitude = z.infer<typeof SetAttitudeSchema>;
 
-export const RadiosNavigationSchema = z
+export const SetRadiosNavigationSchema = z
   .object({
-    frequencyHz: z.record(z.string(), z.number().min(108000).max(136975)).nullable().optional(),
     standbyFrequencyHz: z
       .record(z.string(), z.number().min(108000).max(136975))
       .nullable()
@@ -37,9 +31,9 @@ export const RadiosNavigationSchema = z
     transponderCode: z.number().nullable().optional(),
   })
   .strict();
-export type RadiosNavigation = z.infer<typeof RadiosNavigationSchema>;
+export type SetRadiosNavigation = z.infer<typeof SetRadiosNavigationSchema>;
 
-export const LightsSchema = z
+export const SetLightsSchema = z
   .object({
     landingLightsSwitchOn: z.boolean().nullable().optional(),
     taxiLightsSwitchOn: z.boolean().nullable().optional(),
@@ -47,55 +41,30 @@ export const LightsSchema = z
     strobeLightsSwitchOn: z.boolean().nullable().optional(),
   })
   .strict();
-export type Lights = z.infer<typeof LightsSchema>;
+export type SetLights = z.infer<typeof SetLightsSchema>;
 
-export const IndicatorsSchema = z
+export const SetIndicatorsSchema = z
   .object({
-    engineRpm: z.record(z.string(), z.number()).nullable().optional(),
-    rotorRpm: z.record(z.string(), z.number()).nullable().optional(),
-    propellerRpm: z.record(z.string(), z.number()).nullable().optional(),
-    engineN1Percent: z.record(z.string(), z.number()).nullable().optional(),
-    manifoldPressureInchesMercury: z.record(z.string(), z.number()).nullable().optional(),
-    engineTorqueFtLb: z.record(z.string(), z.number()).nullable().optional(),
-    turbineGasTemperatureDegC: z.record(z.string(), z.number()).nullable().optional(),
-    engineIttDegC: z.record(z.string(), z.number()).nullable().optional(),
-    exhaustGasDegC: z.record(z.string(), z.number()).nullable().optional(),
-    lowRotorRPMWarningOn: z.boolean().nullable().optional(),
-    totalEnergyVariometerFpm: z.number().nullable().optional(),
-    stallWarningOn: z.boolean().nullable().optional(),
     altimeterSettingInchesMercury: z.number().min(24).max(35).nullable().optional(),
-    slipSkidBallRightDeflectionPercent: z.number().min(-200).max(200).nullable().optional(),
-    yawStringRightSideslipDeg: z.number().min(-180).max(180).nullable().optional(),
   })
   .strict();
-export type Indicators = z.infer<typeof IndicatorsSchema>;
+export type SetIndicators = z.infer<typeof SetIndicatorsSchema>;
 
-export const LeversSchema = z
+export const SetLeversSchema = z
   .object({
     flapsHandlePercentDown: z.number().min(-100).max(100).nullable().optional(),
     speedBrakesHandlePercentDeployed: z.number().min(-100).max(100).nullable().optional(),
     landingGearHandlePercentDown: z.number().min(0).max(100).nullable().optional(),
-    throttlePercentOpen: z.record(z.string(), z.number().min(-200).max(200)).nullable().optional(),
-    collectivePercentUp: z.record(z.string(), z.number().min(0).max(100)).nullable().optional(),
-    conditionLeverPercentHigh: z
-      .record(z.string(), z.number().min(0).max(100))
-      .nullable()
-      .optional(),
-    mixtureLeverPercentRich: z.record(z.string(), z.number().min(0).max(100)).nullable().optional(),
     carburetorHeatLeverPercentHot: z
-      .record(z.string(), z.number().min(0).max(100))
-      .nullable()
-      .optional(),
-    propellerLeverPercentCoarse: z
       .record(z.string(), z.number().min(0).max(100))
       .nullable()
       .optional(),
     propBetaEnabled: z.boolean().nullable().optional(),
   })
   .strict();
-export type Levers = z.infer<typeof LeversSchema>;
+export type SetLevers = z.infer<typeof SetLeversSchema>;
 
-export const AutopilotSchema = z
+export const SetAutopilotSchema = z
   .object({
     isAutopilotEngaged: z.boolean().nullable().optional(),
     isFlightDirectorEngaged: z.boolean().nullable().optional(),
@@ -122,9 +91,9 @@ export const AutopilotSchema = z
     altitudeBugFt: z.number().min(0).max(70000).nullable().optional(),
   })
   .strict();
-export type Autopilot = z.infer<typeof AutopilotSchema>;
+export type SetAutopilot = z.infer<typeof SetAutopilotSchema>;
 
-export const SystemsSchema = z
+export const SetSystemsSchema = z
   .object({
     batteryOn: z.record(z.string(), z.boolean()).nullable().optional(),
     pitotHeatSwitchOn: z.boolean().nullable().optional(),
@@ -134,21 +103,19 @@ export const SystemsSchema = z
     propHeatSwitchOn: z.boolean().nullable().optional(),
   })
   .strict();
-export type Systems = z.infer<typeof SystemsSchema>;
+export type SetSystems = z.infer<typeof SetSystemsSchema>;
 
-export const FailuresSchema = z
+export const SetFailuresSchema = z
   .object({
     scheduledAtAltitudeFtAgl: z.record(z.string(), z.number()).nullable().optional(),
     scheduledAtAirspeedKias: z.record(z.string(), z.number()).nullable().optional(),
     isFailed: z.record(z.string(), z.boolean()).nullable().optional(),
   })
   .strict();
-export type Failures = z.infer<typeof FailuresSchema>;
+export type SetFailures = z.infer<typeof SetFailuresSchema>;
 
-export const EnvironmentSchema = z
+export const SetEnvironmentSchema = z
   .object({
-    aircraftWindHeadingDeg: z.number().min(0).max(360).nullable().optional(),
-    aircraftWindSpeedKts: z.number().nullable().optional(),
     zuluTimeHours: z.number().min(0).max(24).nullable().optional(),
     dayOfYear: z.number().min(0).max(365).nullable().optional(),
     cloudLayerEnabled: z.record(z.string(), z.boolean()).nullable().optional(),
@@ -228,40 +195,39 @@ export const EnvironmentSchema = z
     shouldRegenerateWeather: z.boolean().nullable().optional(),
   })
   .strict();
-export type Environment = z.infer<typeof EnvironmentSchema>;
+export type SetEnvironment = z.infer<typeof SetEnvironmentSchema>;
 
-export const SimulationSchema = z
+export const SetSimulationSchema = z
   .object({
-    aircraftName: z.string().nullable().optional(),
     isPaused: z.boolean().nullable().optional(),
     simSpeedRatio: z.number().nullable().optional(),
     isCrashed: z.boolean().nullable().optional(),
     shouldResetFlight: z.boolean().nullable().optional(),
   })
   .strict();
-export type Simulation = z.infer<typeof SimulationSchema>;
+export type SetSimulation = z.infer<typeof SetSimulationSchema>;
 
-export const FreezesSchema = z
+export const SetFreezesSchema = z
   .object({
     positionFreezeEnabled: z.boolean().nullable().optional(),
   })
   .strict();
-export type Freezes = z.infer<typeof FreezesSchema>;
+export type SetFreezes = z.infer<typeof SetFreezesSchema>;
 
-export const SimDataSchema = z
+export const SetSimDataSchema = z
   .object({
-    position: PositionSchema.optional(),
-    attitude: AttitudeSchema.optional(),
-    radiosNavigation: RadiosNavigationSchema.optional(),
-    lights: LightsSchema.optional(),
-    indicators: IndicatorsSchema.optional(),
-    levers: LeversSchema.optional(),
-    autopilot: AutopilotSchema.optional(),
-    systems: SystemsSchema.optional(),
-    failures: FailuresSchema.optional(),
-    environment: EnvironmentSchema.optional(),
-    simulation: SimulationSchema.optional(),
-    freezes: FreezesSchema.optional(),
+    position: SetPositionSchema.optional(),
+    attitude: SetAttitudeSchema.optional(),
+    radiosNavigation: SetRadiosNavigationSchema.optional(),
+    lights: SetLightsSchema.optional(),
+    indicators: SetIndicatorsSchema.optional(),
+    levers: SetLeversSchema.optional(),
+    autopilot: SetAutopilotSchema.optional(),
+    systems: SetSystemsSchema.optional(),
+    failures: SetFailuresSchema.optional(),
+    environment: SetEnvironmentSchema.optional(),
+    simulation: SetSimulationSchema.optional(),
+    freezes: SetFreezesSchema.optional(),
   })
   .strict();
-export type SimData = z.infer<typeof SimDataSchema>;
+export type SetSimData = z.infer<typeof SetSimDataSchema>;
