@@ -7,6 +7,7 @@ export const SetPositionSchema = z
     latitudeDeg: z.number().min(-90).max(90).nullable().optional(),
     longitudeDeg: z.number().min(-180).max(180).nullable().optional(),
     aglAltitudeFt: z.number().nullable().optional(),
+    mslAltitudeFt: z.number().nullable().optional(),
     indicatedAirspeedKts: z.number().nullable().optional(),
   })
   .strict();

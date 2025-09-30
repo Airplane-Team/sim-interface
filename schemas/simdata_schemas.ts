@@ -145,9 +145,6 @@ export const FailuresSchema = z
   .strict();
 export type Failures = z.infer<typeof FailuresSchema>;
 
-export const WeightBalanceSchema = z.object({}).strict();
-export type WeightBalance = z.infer<typeof WeightBalanceSchema>;
-
 export const EnvironmentSchema = z
   .object({
     aircraftWindHeadingDeg: z.number().min(0).max(360).nullable().optional(),
@@ -233,9 +230,6 @@ export const EnvironmentSchema = z
   .strict();
 export type Environment = z.infer<typeof EnvironmentSchema>;
 
-export const InitializationSchema = z.object({}).strict();
-export type Initialization = z.infer<typeof InitializationSchema>;
-
 export const SimulationSchema = z
   .object({
     aircraftName: z.string().nullable().optional(),
@@ -265,9 +259,7 @@ export const SimDataSchema = z
     autopilot: AutopilotSchema.optional(),
     systems: SystemsSchema.optional(),
     failures: FailuresSchema.optional(),
-    weightBalance: WeightBalanceSchema.optional(),
     environment: EnvironmentSchema.optional(),
-    initialization: InitializationSchema.optional(),
     simulation: SimulationSchema.optional(),
     freezes: FreezesSchema.optional(),
   })

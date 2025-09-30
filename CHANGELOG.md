@@ -5,11 +5,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Version numbers are assigned in Github Releases using `worker`'s version number from the [Shirley Changelog](https://airplane.team/changelog).
 
+## [v2.14.0 beta] - 2025-09-29
+
+The 2.14 beta is on the staging environment. See [README.md](./README.md#support-for-sim-integration) for more information.
+
+### Added
+
+- `data_descriptor.ts` and `data_descriptors.ts` for Shirley `v2.14.0 beta`.
+
 ## [v2.13.0] - 2025-08-13
 
 ### Added
 
-- Added `SetSimData` for Shirley `v2.13.0` via `schemas/set_simdata_schemas_xplane.ts`. These are the only `SetSimData` messages that are supported by Shirley. Currently these are X-Plane 12-specific (see [README.md](README.md)).
+- `SetSimData` for Shirley `v2.14.0` via `schemas/set_simdata_schemas_xplane.ts`. These are the only `SetSimData` messages that are supported by Shirley. Currently these are X-Plane 12-specific (see [README.md](README.md)).
 
 ### Changed
 

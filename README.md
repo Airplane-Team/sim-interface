@@ -29,7 +29,12 @@ A schema is available in the `schemas` directory. It is up-to-date as of the Shi
 - `SetSimData` is sent from Shirley to the sim: it requires prior knowledge of the sim's supported settable data.
   - The `schemas/set_simdata_schemas_xplane.ts` file is specific to X-Plane 12, but can be used for other sims in generic-sim mode by adding `?generic` to the flight URL.
   - Extending to other sims is possible, but requires Shirley to be updated. Please [contact us on Discord](https://airplane.team/discord) for support.
+- `DataDescriptor` describes the data that Shirley can access or set.
+  - `schemas/data_descriptor.ts` is a single `DataDescriptor` for a single `DataName`.
+  - `schemas/data_descriptors.ts` is a map of `DataName` to `DataDescriptor`.
 
 These schemas are subject to change as Shirley evolves.
+
+## Support for Sim Integration
 
 Please [contact us on Discord](https://airplane.team/discord) for the latest schemas for `SimData` and `SetSimData`, and for support in connecting your sim to Shirley!
