@@ -38,3 +38,11 @@ These schemas are subject to change as Shirley evolves.
 ## Support for Sim Integration
 
 Please [contact us on Discord](https://airplane.team/discord) for the latest schemas for `SimData` and `SetSimData`, and for support in connecting your sim to Shirley!
+
+# Other FlyShirley Repositories by Airplane Team
+
+Please star our repositories to show your support!
+
+- [Sample Challenges](https://github.com/Airplane-Team/sample-challenges) - Schemas and examples to help you utilize Shirley's powerful challenge system.
+- [Aircraft Profiles](https://github.com/Airplane-Team/aircraft-profiles) - Schemas and sample profiles to teach Shirley about your favorite aircraft.
+- [Sim Interface (this repo)](https://github.com/Airplane-Team/sim-interface) - Complete interface to connect Shirley to any sim. Or, utilize the Shirley protocol for your own web-based sim plugin.
